@@ -1,5 +1,5 @@
 #import "FlutterCardIoPlugin.h"
-#import "CardIO.h"
+#import "../CardIO/CardIO.h"
 
 @interface FlutterCardIoPlugin ()<CardIOPaymentViewControllerDelegate>
 @end

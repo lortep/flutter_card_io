@@ -12,10 +12,12 @@ CardIO flutter plugin.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'hello@world.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'Classes/**/*', 'CardIO/*'
+  s.public_header_files = 'Classes/**/*.h', 'CardIO/*.h'
+  s.vendored_libraries = 'CardIO/*.a'
+  s.frameworks = 'Accelerate','AudioToolbox','AVFoundation','CoreGraphics','CoreMedia','CoreVideo','Foundation','MobileCoreServices','OpenGLES','QuartzCore','Security','UIKit'
   s.dependency 'Flutter'
-  s.dependency 'CardIO'
+  s.static_framework = true
   s.ios.deployment_target = '8.0'
 end
 
