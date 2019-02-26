@@ -39,6 +39,7 @@
     }
     
     if ([@"scanCard" isEqualToString:call.method]) {
+        _scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
         _scanViewController.delegate = self;
         
         _result = result;
