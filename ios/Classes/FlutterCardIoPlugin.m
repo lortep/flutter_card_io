@@ -24,7 +24,7 @@
     self = [super init];
     if (self) {
         _viewController = viewController;
-        _scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
+//        _scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
     }
     return self;
 }
@@ -39,8 +39,11 @@
     }
     
     if ([@"scanCard" isEqualToString:call.method]) {
+        
         _scanViewController = [[CardIOPaymentViewController alloc] initWithPaymentDelegate:self];
         _scanViewController.delegate = self;
+        // DEFAULT PRESENTATION STYLE BRINGS SORROW
+        _scanViewController.modalPresentationStyle =  UIModalPresentationOverFullScreen;
         
         _result = result;
         _arguments = call.arguments;
@@ -57,7 +60,6 @@
         _scanViewController.useCardIOLogo = [_arguments objectForKey:@"useCardIOLogo"] ? [[_arguments objectForKey:@"useCardIOLogo"] boolValue] : false;
         _scanViewController.suppressScanConfirmation = [_arguments objectForKey:@"suppressConfirmation"] ? [[_arguments objectForKey:@"suppressConfirmation"] boolValue] : false;
         _scanViewController.disableManualEntryButtons = [_arguments objectForKey:@"suppressManualEntry"] ? [[_arguments objectForKey:@"suppressManualEntry"] boolValue] : false;
-        
         [_viewController presentViewController:_scanViewController animated:YES completion:nil];
     } else {
         result(FlutterMethodNotImplemented);
@@ -94,6 +96,7 @@
                 break;
         }
     }
+    [_scanViewController dismissViewControllerAnimated:YES completion:nil];
     _result(@{
         @"cardholderName": ObjectOrNull(info.cardholderName),
         @"cardNumber": ObjectOrNull(info.cardNumber),
@@ -104,7 +107,6 @@
         @"cvv": ObjectOrNull(info.cvv),
         @"postalCode": ObjectOrNull(info.postalCode)
     });
-    [_scanViewController dismissViewControllerAnimated:YES completion:nil];
     _result = nil;
     _arguments = nil;
 }
